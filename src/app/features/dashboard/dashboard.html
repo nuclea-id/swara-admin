@@ -1,0 +1,48 @@
+<div class="dashboard-page">
+  <h2 class="title-lg mb-6">Dashboard</h2>
+  
+  @if (errorMessage()) {
+    <div class="alert alert-danger mb-4">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+    <!-- Metric 1 -->
+    <div class="glass-card flex-col justify-between" style="position: relative; overflow: hidden;">
+      <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: var(--accent-primary); filter: blur(40px); opacity: 0.3; border-radius: 50%;"></div>
+      
+      <div class="card-header" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+        <h5 class="title-sm text-secondary mb-2 flex items-center">
+          <i class="bi bi-people-fill me-2" style="color: var(--accent-primary);"></i> Total Users
+        </h5>
+      </div>
+      <div class="card-body">
+        @if (!isLoadingUsers()) {
+          <h3 style="font-size: 3rem; font-weight: 700; margin: 0.5rem 0;">{{ totalUsers() }}</h3>
+        }
+        @if (isLoadingUsers()) {
+          <div style="height: 3rem; margin: 0.5rem 0; display: flex; align-items: center;">
+            <span class="spinner" style="border-width: 2px; width: 24px; height: 24px;"></span>
+          </div>
+        }
+        <p class="text-secondary" style="font-size: 0.875rem;">Registered users in Firebase Auth.</p>
+      </div>
+    </div>
+
+    <!-- Metric 2 -->
+    <div class="glass-card flex-col justify-between" style="position: relative; overflow: hidden;">
+      <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: var(--accent-success); filter: blur(40px); opacity: 0.2; border-radius: 50%;"></div>
+      
+      <div class="card-header" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+        <h5 class="title-sm text-secondary mb-2 flex items-center">
+          <i class="bi bi-receipt-cutoff me-2" style="color: var(--accent-success);"></i> Recent Transactions
+        </h5>
+      </div>
+      <div class="card-body">
+        <h3 style="font-size: 3rem; font-weight: 700; margin: 0.5rem 0;">{{ totalTransactions() }}</h3>
+        <p class="text-secondary" style="font-size: 0.875rem;">Events logged by RevenueCat.</p>
+      </div>
+    </div>
+  </div>
+</div>

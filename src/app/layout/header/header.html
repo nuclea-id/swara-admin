@@ -1,0 +1,23 @@
+<header class="app-header w-full">
+  <div class="header-title">
+    <h3 class="title-sm m-0">Admin Portal</h3>
+  </div>
+  
+  <div class="header-actions">
+    @if (authService.userSig(); as user) {
+      <div class="flex items-center gap-4">
+        <div class="user-info flex items-center gap-2">
+          <div class="avatar" style="width: 32px; height: 32px; border-radius: 50%; background: var(--bg-surface-hover); display: flex; align-items: center; justify-content: center;">
+            <i class="bi bi-person-fill"></i>
+          </div>
+          <span class="text-secondary" style="font-size: 0.875rem;">
+            {{ user.displayName || user.email }}
+          </span>
+        </div>
+        <button class="btn btn-danger" (click)="logout()">
+          <i class="bi bi-box-arrow-right me-2"></i> Logout
+        </button>
+      </div>
+    }
+  </div>
+</header>

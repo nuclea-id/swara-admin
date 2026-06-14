@@ -1,0 +1,72 @@
+<div class="users-page">
+  <h2 class="title-lg mb-6">Users & Permissions</h2>
+  
+  <div class="glass-card mb-6">
+    <div class="card-header">
+      <h5 class="title-sm mb-0">Add New Admin</h5>
+    </div>
+    <div class="card-body">
+      <div class="flex items-center gap-4" style="flex-wrap: wrap;">
+        <div class="form-group mb-0" style="flex: 1; min-width: 250px;">
+          <label class="form-label">User Email</label>
+          <input type="email" class="form-control" [formControl]="adminEmailControl" placeholder="Enter email address of registered user" [disabled]="isAddingAdmin()">
+        </div>
+        <div style="margin-top: 1.5rem;">
+          <button class="btn btn-primary" (click)="addAdmin()" [disabled]="!adminEmailControl.value || isAddingAdmin()" style="min-width: 140px;">
+            @if (isAddingAdmin()) {
+              <span class="spinner"></span>
+            }
+            Add Admin
+          </button>
+        </div>
+      </div>
+      @if (addMessage()) {
+        <div class="alert alert-success mt-4 mb-0">{{ addMessage() }}</div>
+      }
+      @if (addError()) {
+        <div class="alert alert-danger mt-4 mb-0">{{ addError() }}</div>
+      }
+    </div>
+  </div>
+
+  <div class="glass-card">
+    <div class="card-body" style="padding: 0;">
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>UID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (user of admins(); track user.id) {
+              <tr>
+                <td style="font-family: monospace; color: var(--text-muted);">{{ user.id }}</td>
+                <td style="font-weight: 500;">{{ user['displayName'] || 'N/A' }}</td>
+                <td>{{ user.email || 'N/A' }}</td>
+                <td>
+                  <span class="badge" [class.badge-admin]="user.role === 'admin'" [class.badge-user]="user.role !== 'admin'">
+                    <i class="bi" [class.bi-shield-fill-check]="user.role === 'admin'" [class.bi-person-fill]="user.role !== 'admin'" style="margin-right: 4px;"></i>
+                    {{ user.role || 'user' }}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-danger" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;" (click)="removeAdmin(user.id)" [disabled]="removingUid() === user.id">
+                    @if (removingUid() === user.id) {
+                      <span class="spinner" style="width: 12px; height: 12px; border-width: 1px;"></span>
+                    }
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

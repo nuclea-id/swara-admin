@@ -1,0 +1,21 @@
+# Konfigurasi Firebase App Hosting
+# Dokumentasi: https://firebase.google.com/docs/app-hosting/configure
+
+# Konfigurasi Environment & Node.js
+# Firebase App Hosting akan otomatis mendeteksi Angular dan menjalankan `npm run build`
+
+runConfig:
+  # Alokasi CPU (dalam core)
+  cpu: 1
+  # Alokasi RAM (dalam MB)
+  memoryMb: 1024
+  # Concurrency request per instance
+  concurrency: 80
+
+# Anda bisa menambahkan environment variables jika ada:
+# env:
+#   - variable: API_URL
+#     value: https://api.swara.stream
+#     availability:
+#       - BUILD
+#       - RUNTIME
